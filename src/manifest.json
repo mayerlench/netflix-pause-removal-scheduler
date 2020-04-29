@@ -10,7 +10,7 @@
 
   "background": {
     "scripts": [
-      "background.js"
+      "background.js", "js/moment.min.js", "js/util.js"
     ]
   },
 
