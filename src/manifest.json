@@ -1,7 +1,7 @@
 {
-  "name": "netflix-pause-removal-and-scheduler",
+  "name": "Netflix Pause Removal & Scheduler",
   "description": "Netflix pasue removal bypasses the \"are you still watching\"? limitation. You can also set links to open on a weekly schedule",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "manifest_version": 2,
   "icons": {
     "48": "icons/icon_48.png",
