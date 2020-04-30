@@ -1,6 +1,6 @@
 {
   "name": "netflix-pause-removal-and-scheduler",
-  "description": "Netflix pasue removal bypasses the are you still watching limit. You can also set links to open on a weekly schedule",
+  "description": "Netflix pasue removal bypasses the \"are you still watching\"? limitation. You can also set links to open on a weekly schedule",
   "version": "1.0.0",
   "manifest_version": 2,
   "icons": {
@@ -10,7 +10,7 @@
 
   "background": {
     "scripts": [
-      "background.js", "js/moment.min.js", "js/util.js"
+      "js/background.js", "js/moment.min.js", "js/util.js"
     ]
   },
 
