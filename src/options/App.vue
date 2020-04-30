@@ -80,13 +80,14 @@
                   <div class="row">
                     <div class="col">
                       <select class="custom-select mb-3" v-model="schedule.day">
+                        <option value="">Choose day...</option>
                         <option>Sunday</option>
                         <option>Monday</option>
                         <option>Tuesday</option>
                         <option>Wednesday</option>
                         <option>Thursday</option>
                         <option>Friday</option>
-                        <option selected>Saturday</option>
+                        <option>Saturday</option>
                       </select>
                     </div>
                     <div class="col">
@@ -96,6 +97,7 @@
                         data-target-input="nearest"
                       >
                         <input
+                        placeholder="Pick a time"
                           type="text"
                           class="form-control datetimepicker-input"
                           data-target="#datetimepicker7"
@@ -151,9 +153,9 @@ export default {
       schedules: [],
       schedule: {
         id: "",
-        title: "Hello",
-        link: "https://netflix.com",
-        day: "Saturday",
+        title: "",
+        link: "",
+        day: "",
         time: "",
         opened: false
       }
