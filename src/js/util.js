@@ -6,7 +6,7 @@ const getSchedules = () => {
   })
 }
 
-const setSchedules  = (schedules) => {
+const setSchedules = (schedules) => {
   return new Promise((resolve, reject) => {
     chrome.storage.local.set({ schedules }, () => {
       resolve(schedules)
@@ -17,6 +17,12 @@ const setSchedules  = (schedules) => {
 const openUrl = function(url) {
   return new Promise((resolve) => {
     chrome.tabs.create({ url: url }, function() {
+      chrome.tabs.query({ audible: true }, function(res) {
+        var tabs = res || []
+        tabs.map((t) => {
+          chrome.tabs.remove(t.id)
+        })
+      })
       resolve(true)
     })
   })
@@ -25,8 +31,6 @@ const openUrl = function(url) {
 const options = {
   openUrl,
   getSchedules,
-  setSchedules
+  setSchedules,
 }
 window.tabSchedulerOptions = options
-
-

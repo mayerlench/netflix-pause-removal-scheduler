@@ -1,6 +1,6 @@
 {
-  "name": "new-tab-page",
-  "description": "A Vue.js web extension",
+  "name": "netflix-pause-removal-and-scheduler",
+  "description": "Netflix pasue removal bypasses the are you still watching limit. You can also set links to open on a weekly schedule",
   "version": "1.0.0",
   "manifest_version": 2,
   "icons": {

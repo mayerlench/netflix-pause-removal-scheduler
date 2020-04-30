@@ -3,7 +3,7 @@
     <!-- Image and text -->
     <nav class="navbar navbar-light bg-faded">
       <a class="navbar-brand" href="#">
-        <h1 class="display-4">Shabbat-lify</h1>
+        <h1 class="display-4">Links Scheduler</h1>
         <h6>
           Netflix bypass time limit
           <span class="text-success">ACTIVE</span>
@@ -36,7 +36,7 @@
           <tr :key="i">
             <td>{{p.title}}</td>
             <td>{{p.link}}</td>
-            <td>{{p.day}} {{p.time}}</td>
+            <td>{{p.day}} {{p.time}} <span class="text-danger" v-if="p.opened">(opened)</span></td>
             <td>
               <button
                 :disabled="p.isDeleting"
