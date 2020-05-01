@@ -11,6 +11,7 @@ const config = {
   context: __dirname + "/src",
   entry: {
     "js/background": "./js/background.js",
+    "js/util": "./js/util.js",
     "popup/popup": "./popup/popup.js",
     "options/options": "./options/options.js"
   },
