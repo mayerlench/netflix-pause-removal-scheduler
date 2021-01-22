@@ -1,3 +1,11 @@
+const reloadCurrentTab = () => {
+  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+    tabs.map((m) => {
+      chrome.tabs.reload(m.id)
+    })
+  })
+}
+
 const getSchedules = () => {
   return new Promise((resolve, reject) => {
     chrome.storage.local.get("schedules", (result) => {
@@ -49,12 +57,12 @@ var checkSchedules = function() {
     })
   })
 }
-
 const options = {
   checkSchedules,
   openUrl,
   getSchedules,
   setSchedules,
+  reloadCurrentTab,
 }
 
 window.tabSchedulerOptions = options
