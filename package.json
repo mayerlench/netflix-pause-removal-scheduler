@@ -1,6 +1,6 @@
 {
   "name": "netflix-pause-removal-scheduler",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "Netflix pause removal, removes the netflix time limit. Also allows to schedule the opening of links weekly. Just choose the day and time and we will take care of the rest",
   "author": "Mayer Lench <mayerlench1314@gmail.com>",
   "engines": {
@@ -9,11 +9,11 @@
   "scripts": {
     "prettier": "prettier \"src/**/*.{js,vue}\"",
     "prettier:write": "npm run prettier -- --write",
-    "build": "cross-env NODE_ENV=production webpack --hide-modules",
-    "build:dev": "cross-env NODE_ENV=development webpack --hide-modules",
-    "build-zip": "node scripts/build-zip.js",
-    "watch": "npm run build -- --watch",
-    "watch:dev": "cross-env HMR=true npm run build:dev -- --watch"
+    "build": "npm run incVersion && cross-env NODE_ENV=production webpack --hide-modules && npm run zip",
+    "incVersion": "node scripts/incrementVersion.js",
+    "zip": "node scripts/build-zip.js",
+    "build:dev": "cross-env NODE_ENV=development HMR=true webpack --hide-modules",
+    "start": "npm run build:dev -- --watch"
   },
   "dependencies": {
     "bootstrap": "^4.4.1",

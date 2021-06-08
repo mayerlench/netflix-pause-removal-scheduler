@@ -7,6 +7,7 @@ const { VueLoaderPlugin } = require("vue-loader")
 const { version } = require("./package.json")
 
 const config = {
+
   mode: process.env.NODE_ENV,
   context: __dirname + "/src",
   entry: {
@@ -111,10 +112,10 @@ const config = {
           const jsonContent = JSON.parse(content)
           jsonContent.version = version
 
-          if (config.mode === "development") {
-            jsonContent["content_security_policy"] =
-              "script-src 'self' 'unsafe-eval'; object-src 'self'"
-          }
+          // if (config.mode === "development") {
+          //   jsonContent["content_security_policy"] =
+          //     "script-src 'self' 'unsafe-eval'; object-src 'self';"
+          // }
 
           return JSON.stringify(jsonContent, null, 2)
         },
@@ -122,6 +123,9 @@ const config = {
     ]),
   ],
 }
+
+if (config.mode === "development")
+  config.devtool = 'cheap-module-source-map'
 
 if (config.mode === "production") {
   config.plugins = (config.plugins || []).concat([

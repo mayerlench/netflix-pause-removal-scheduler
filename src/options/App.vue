@@ -3,14 +3,13 @@
     <!-- Image and text -->
     <nav class="navbar navbar-light bg-faded">
       <a class="navbar-brand" href="#">
-        <h1 class="display-4">Links Scheduler</h1>
+        <h1 class="display-4">Shabbatlify</h1>
         <h6>
           Netflix bypass time limit
           <span class="text-success">ACTIVE</span>
         </h6>
         <p class="text-muted text-small" style="font-size: 12px">
-          For netflix or any other link to work, you must be logged in prior to
-          the link being opened
+          Tested with netflix, other providers that have autoplay may work
         </p>
         <p class="text-muted text-small" style="font-size: 12px">
           Download caffeine app
@@ -23,49 +22,45 @@
     </nav>
     <hr />
     <div id="app">
-      <div class="row" style="border-bottom: 5px 2px">
+      <div class="row">
         <button
           v-on:click="createScheduleBtn"
           class="btn btn-outline-primary ml-3"
         >
-          Add Schedule
+          Add +
         </button>
       </div>
-      <br />
-      <table class="table table-hover table-striped table-bordered">
-        <tr>
-          <th>Title</th>
-          <th>Link</th>
-          <th>Schedule</th>
-          <th></th>
-        </tr>
-
         <template v-for="(p, i) in schedules">
-          <tr :key="i">
-            <td>{{ p.title }}</td>
-            <td>{{ p.link }}</td>
-            <td>
-              {{ p.day }} {{ p.time }}
-              <span class="text-danger" v-if="p.opened">(opened)</span>
-            </td>
-            <td>
-              <button
+          <div :key="i" class="card">
+            <div class="row">
+            <div class="col-sm-7">
+              <strong style="font-size: 17px;">{{ p.title }}</strong>
+              <div style="font-size: 11px;">
+                {{ p.link }}
+              </div>
+            </div>
+            <div class="col-sm-3">
+                {{ p.day }} {{ p.time }}
+                <span class="text-danger" v-if="p.opened">(opened)</span>
+            </div>
+            <div class="col-sm-2">
+                <button
                 :disabled="p.isDeleting"
                 v-on:click="deleteScheduleBtn(p.id)"
-                class="btn btn-danger"
-              >
+                class="btn btn-danger action-btn"
+                >
                 Delete
               </button>
-            </td>
-          </tr>
+            </div>
+            </div>
+          </div>
         </template>
-      </table>
 
       <div class="modal fade" id="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Add Schedule</h4>
+              <h4 class="modal-title">Add</h4>
             </div>
             <div class="modal-body">
               <form class="form-horizontol" method="POST" id="scheduleForm">
@@ -167,7 +162,7 @@ import "tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js";
 import "tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
-import options from "../js/util";
+import "../js/util";
 
 export default {
   name: "App",
@@ -181,7 +176,7 @@ export default {
         day: "",
         time: "",
         opened: false,
-      },
+      }
     };
   },
   mounted: function () {
@@ -240,6 +235,12 @@ export default {
     onSubmitSchedule() {
       var self = this;
       this.schedule.id = moment().unix();
+      const linkStartsWithHttp = this.schedule.link.startsWith("http") 
+      if(!linkStartsWithHttp) {
+          alert('You link must start with http or https')
+          return
+      }
+
       tabSchedulerOptions
         .setSchedules(this.schedules.concat(this.schedule))
         .then(() => {
@@ -262,4 +263,16 @@ export default {
 p {
   font-size: 20px;
 }
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  padding: 12px;
+  margin-top: 10px;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
 </style>
