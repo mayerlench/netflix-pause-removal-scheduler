@@ -1,4 +1,4 @@
-setInterval(function() {
+setInterval(function () {
   console.log('stating internal function')
   try {
     document
@@ -24,5 +24,38 @@ setInterval(function() {
     videoEl.setAttribute("webkit-playsinline", true)
     videoEl.setAttribute("playsinline", true)
     btnEl.click()
-  } catch (e) {}
+  } catch (e) { }
 }, 5000)
+
+
+const getNetflixInfo = () => {
+  const info = document.getElementsByClassName('ellipsize-text')[0]
+
+  try {
+    const children = info.children
+    if (!children[0].innerText && !children[1].innerText && !children[2].innerText)
+      return
+
+    return encodeURIComponent(`${children[0].innerText} ${children[1].innerText} ${children[2].innerText}`)
+  } catch (e) {
+    try {
+      return encodeURIComponent(info.innerText || '')
+    } catch (e) {
+      return
+    }
+  }
+}
+
+setInterval(function () {
+  try {
+    if (document.location.hash || !document.location.href.startsWith('https://www.netflix.com/watch/'))
+      return
+
+    const info = getNetflixInfo()
+
+    if (info)
+      document.location.hash = info
+  } catch (e) {
+    return
+  }
+}, 1000)

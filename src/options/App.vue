@@ -208,7 +208,9 @@ export default {
       navigator.clipboard
         .readText()
         .then((text) => {
-          this.schedule.link = text.startsWith("http") ? text : "";
+          const newLink = text.startsWith("http") ? text : "";
+          this.schedule.link = newLink
+          this.schedule.title = decodeURIComponent(newLink.split('#')[1] || '')
         })
         .catch((err) => {
           console.error("Failed to read clipboard contents: ", err);

@@ -1,8 +1,8 @@
-setInterval(function() {
+setInterval(function () {
   tabSchedulerOptions.checkSchedules()
 }, 10000)
 
-setInterval(function() {
+setInterval(function () {
   console.log('checking for failed page')
   try {
     var error =
@@ -22,7 +22,7 @@ setInterval(function() {
   }
 }, 5000)
 
-chrome.runtime.onInstalled.addListener(function(details) {
+chrome.runtime.onInstalled.addListener(function (details) {
   if (details.reason === "install") {
     return chrome.tabs.create({
       url: "options/options.html",
