@@ -3,6 +3,19 @@ setInterval(function () {
 }, 10000)
 
 setInterval(function () {
+  tabSchedulerOptions.getSchedules().then(res => {
+    const links = res.filter(f => !f.opened).map(m => {
+      var dayOfWeek = moment().format("dddd")
+      var time = moment(m.time, "h:mm a").format('h:mm a')
+      return `${m.title} - ${dayOfWeek} at ${time}`
+    })
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, { action: "show_toast", message: `Next up on shabbatlify \n\n${links.join('\n\n')}` }, function (response) { });
+    });
+  })
+}, 3600000)
+
+setInterval(function () {
   console.log('checking for failed page')
   try {
     var error =
@@ -20,6 +33,7 @@ setInterval(function () {
   } catch (e) {
     console.log(e)
   }
+
 }, 5000)
 
 chrome.runtime.onInstalled.addListener(function (details) {

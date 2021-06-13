@@ -1,5 +1,4 @@
 setInterval(function () {
-  console.log('stating internal function')
   try {
     document
       .getElementsByClassName("interrupter-actions")[0]
@@ -26,6 +25,40 @@ setInterval(function () {
     btnEl.click()
   } catch (e) { }
 }, 5000)
+
+const pageInit = () => {
+  var script = document.createElement('script');
+  var link = document.createElement('link');
+
+  script.setAttribute('src', 'https://cdn.jsdelivr.net/npm/toastify-js');
+  link.setAttribute('href', 'https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css');
+  link.setAttribute('rel', 'stylesheet');
+
+  document.head.appendChild(link);
+  document.body.appendChild(script);
+}
+pageInit()
+
+const showToast = (message) => {
+  var script = document.createElement(`script`);
+  script.innerHTML = `
+        Toastify({
+          text: \`${message}\`,
+          duration: 8000,
+          newWindow: true,
+          close: true,
+          gravity: "top", //
+          position: "left", //
+          backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+          stopOnFocus: true, // Prevents dismissing of toast on hover
+          onClick: function(){} // Callback after click
+        }).showToast();
+    `
+  document.body.appendChild(script);
+  setTimeout(() => {
+    script.remove()
+  }, 8000)
+}
 
 
 const getNetflixInfo = () => {
@@ -59,3 +92,9 @@ setInterval(function () {
     return
   }
 }, 1000)
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.action === 'show_toast') {
+    showToast(message.message)
+  }
+});
