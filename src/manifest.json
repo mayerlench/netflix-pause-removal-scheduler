@@ -1,7 +1,7 @@
 {
   "name": "Shabbatlify",
   "description": "Pasue removal for continuous playing. Bypasses the \"are you still watching\"? limitation. You can also set links to on any schedule",
-  "version": "1.0.8",
+  "version": "1.0.10",
   "manifest_version": 2,
   "icons": {
     "48": "icons/icon_48.png",
@@ -29,7 +29,6 @@
   "options_page": "options/options.html",
   "permissions": [
     "storage",
-    "tabs",
-    "notifications"
+    "tabs"
   ]
 }
