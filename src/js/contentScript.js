@@ -1,13 +1,19 @@
-setInterval(function () {
+const tryCatch = (func) => {
   try {
-    document
-      .getElementsByClassName("interrupter-actions")[0]
-      .getElementsByClassName("nf-flat-button")[0]
-      .click()
-  } catch (e) {
-    console.log(e)
+    return func()
+  } catch (error) {
+
   }
-  try {
+}
+
+setInterval(function () {
+  tryCatch(() => document
+    .getElementsByClassName("interrupter-actions")[0]
+    .getElementsByClassName("nf-flat-button")[0]
+    .click()
+  )
+
+  const amazonPeacockChecks = () => {
     const isPeacock = window.location.origin.includes("peacock")
     const isAmazon = window.location.origin.includes("amazon")
     const btnClass = isPeacock ? "autoplay__button--container" : isAmazon ? "atvwebplayersdk-playpause-button" : ""
@@ -23,7 +29,9 @@ setInterval(function () {
     videoEl.setAttribute("webkit-playsinline", true)
     videoEl.setAttribute("playsinline", true)
     btnEl.click()
-  } catch (e) { }
+  }
+  tryCatch(amazonPeacockChecks)
+
 }, 5000)
 
 const pageInit = () => {
@@ -45,13 +53,10 @@ const showToast = (message) => {
         Toastify({
           text: \`${message}\`,
           duration: 8000,
-          newWindow: true,
           close: true,
-          gravity: "top", //
-          position: "left", //
-          backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
-          stopOnFocus: true, // Prevents dismissing of toast on hover
-          onClick: function(){} // Callback after click
+          gravity: "top",
+          position: "left",
+          stopOnFocus: true
         }).showToast();
     `
   document.body.appendChild(script);
@@ -71,16 +76,12 @@ const getNetflixInfo = () => {
 
     return encodeURIComponent(`${children[0].innerText} ${children[1].innerText} ${children[2].innerText}`)
   } catch (e) {
-    try {
-      return encodeURIComponent(info.innerText || '')
-    } catch (e) {
-      return
-    }
+    tryCatch(() => encodeURIComponent(info.innerText || ''))
   }
 }
 
 setInterval(function () {
-  try {
+  const setNFTitleHash = () => {
     if (document.location.hash || !document.location.href.startsWith('https://www.netflix.com/watch/'))
       return
 
@@ -88,9 +89,13 @@ setInterval(function () {
 
     if (info)
       document.location.hash = info
-  } catch (e) {
-    return
   }
+
+  tryCatch(setNFTitleHash)
+}, 1000)
+
+setInterval(function () {
+  tryCatch(() => document.getElementsByClassName('bigPlayUIInner')[0].click())
 }, 1000)
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {

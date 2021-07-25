@@ -9,21 +9,29 @@ setInterval(function () {
       var time = moment(m.time, "h:mm a").format('h:mm a')
       return `${m.title} - ${dayOfWeek} at ${time}`
     })
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      chrome.tabs.sendMessage(tabs[0].id, { action: "show_toast", message: `Next up on shabbatlify \n\n${links.join('\n\n')}` }, function (response) { });
-    });
+    if (links.length > 0)
+      chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, { action: "show_toast", message: `Next up on shabbatlify \n\n${links.join('\n\n')}` }, function (response) { });
+      });
   })
 }, 3600000)
 
 setInterval(function () {
-  console.log('checking for failed page')
+  try {
+    // start rumble player
+  
+    document.getElementsByClassName('bigPlayUIInner')[0].click()
+  } catch (e) {
+   
+  }
+
   try {
     var error =
       document.getElementsByClassName("error-page--content")[0].querySelector("h1").innerText ===
       "Pardon the interruption"
     if (error) tabSchedulerOptions.reloadCurrentTab()
   } catch (e) {
-    console.log(e)
+
   }
 
   try {
@@ -31,7 +39,7 @@ setInterval(function () {
       document.getElementById("main-message").querySelector("h1 > span").innerText === "This site can’t be reached"
     if (error) tabSchedulerOptions.reloadCurrentTab()
   } catch (e) {
-    console.log(e)
+   
   }
 
 }, 5000)
