@@ -1,6 +1,6 @@
 {
   "name": "netflix-pause-removal-scheduler",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Netflix pause removal, removes the netflix time limit. Also allows to schedule the opening of links weekly. Just choose the day and time and we will take care of the rest",
   "author": "Mayer Lench <mayerlench1314@gmail.com>",
   "engines": {
@@ -17,15 +17,14 @@
   },
   "dependencies": {
     "bootstrap": "^4.4.1",
+    "cross-env": "^7.0.3",
     "font-awesome": "^4.7.0",
     "jquery": "^3.5.0",
     "moment": "^2.24.0",
     "popper.js": "^1.16.1",
     "tempusdominus-bootstrap-4": "^5.1.2",
     "vue": "^2.6.10",
-    "webextension-polyfill": "^0.3.1"
-  },
-  "devDependencies": {
+    "webextension-polyfill": "^0.3.1",
     "@babel/core": "^7.1.2",
     "@babel/plugin-proposal-optional-chaining": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
@@ -34,7 +33,6 @@
     "babel-loader": "^8.0.2",
     "copy-webpack-plugin": "^5.1.1",
     "core-js": "^3.0.1",
-    "cross-env": "^5.2.0",
     "css-loader": "^3.4.0",
     "ejs": "^2.6.1",
     "file-loader": "^5.0.2",

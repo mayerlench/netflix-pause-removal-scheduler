@@ -67,16 +67,16 @@ const showToast = (message) => {
 
 
 const getNetflixInfo = () => {
-  const info = document.getElementsByClassName('ellipsize-text')[0]
+
+  const info = document.querySelector('[data-uia="video-title"]');
 
   try {
-    const children = info.children
-    if (!children[0].innerText && !children[1].innerText && !children[2].innerText)
-      return
+    if ([...info.children].length === 0) {
+      return encodeURIComponent(info.innerText || '')
+    }
 
     return encodeURIComponent(`${children[0].innerText} ${children[1].innerText} ${children[2].innerText}`)
   } catch (e) {
-    tryCatch(() => encodeURIComponent(info.innerText || ''))
   }
 }
 
