@@ -69,14 +69,18 @@ const showToast = (message) => {
 const getNetflixInfo = () => {
 
   const info = document.querySelector('[data-uia="video-title"]');
+  if (!info)
+    return
 
   try {
-    if ([...info.children].length === 0) {
+    if (info.children.length === 0) {
       return encodeURIComponent(info.innerText || '')
     }
 
+    const children = info.children
     return encodeURIComponent(`${children[0].innerText} ${children[1].innerText} ${children[2].innerText}`)
   } catch (e) {
+    console.log(e, 'cannot get title')
   }
 }
 
@@ -86,6 +90,7 @@ setInterval(function () {
       return
 
     const info = getNetflixInfo()
+    console.log('🚀 ~ file: contentScript.js ~ line 93 ~ setNFTitleHash ~ info', info)
 
     if (info)
       document.location.hash = info
